@@ -77,6 +77,92 @@ namespace FundamentalsOfCSharp
             var vi = 10;
             var li = System.PlatformID.Unix;
             //Always initialize the var variable with a value. Otherwise the compiler will generate an error.
+
+            //Linear arrays 
+
+            int[] aInt = new int[4];
+
+            aInt[0] = 1;
+            aInt[1] = 2;
+            aInt[2] = 3;
+            aInt[3] = 4;
+
+            for (i = 0; i < 4; i++)
+            {
+                Console.WriteLine("{0}", aInt[i]);
+            }
+
+            Console.ReadLine();
+
+            //another way to declare and inicialize  single dimension array
+
+            int[] a1 = { 1, 2, 3, 4 };
+
+            //another way
+
+            int[] a2 = new int[4] { 1, 2, 3, 4 };
+
+            //another way
+
+            int[] a3 = new int[] { 1, 2, 3, 4 };
+
+            //multidimension array
+
+            int[,] a4 = new int[2, 2];
+
+            a4[0, 0] = 0;
+            a4[0, 1] = 1;
+            a4[1, 0] = 2;
+            a4[1, 1] = 3;
+
+            for (int row = 0; row < a4.GetLength(0); row++)
+            {
+                for (int col = 0; col < a4.GetLength(1); col++)
+                {
+                    Console.WriteLine("{0}", a4[row, col]);
+                }
+            }
+
+            Console.ReadLine();
+            //another way to declare and inicialize multidimension array
+
+            int[,] a5 = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+            //or
+            int[,] a6 = new int[3, 3] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+            //or
+            int[,] a7 = new int[,] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+
+            int[,,] a8 = { { { 1, 2, 3 }, { 1, 2, 3 }, { 1, 2, 3 } },
+                           { { 2, 3, 4 }, { 2, 3, 4 }, { 2, 3, 4 } } };
+
+            //Jagged array
+            int[][] a9 = new int[3][];
+
+            a9[0] = new int[] { 0, 1, 2, 3, 4 };
+            a9[1] = new int[] { 0, 1, 2 };
+            a9[2] = new int[] { 0, 1, 2, 3, 4, 5, 6, 7 };
+
+            for (int row = 0; row < a9.Length; row++)
+            {
+                for (int col = 0; col < a9[row].Length; col++)
+                {
+                    Console.Write("{0}",a9[row][col]);
+                }
+                Console.WriteLine();
+            }
+            Console.ReadLine();
+
+            //another way to declare and inicialize jagged array
+
+            int[][] a10 =
+            {
+                new int[] {0,1,2,3},
+                new int[] {0,1,2},
+                new int[] {0}
+            };
+            
+
+
         }
     }
 }
