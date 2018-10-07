@@ -336,14 +336,55 @@ namespace FundamentalsOfCSharp
             //statement inside the if-else block, if we are willing to skip the remaining statement
             //of method only when a certain condition satisfies.Otherwise execute the complete
             //method.
-//Throw
+            //Throw
 
+            Console.WriteLine("write method 1 {0}", method1(1, 2));
+            Console.WriteLine("write method 1 {0}", method1(b:1, a:2));
+            Console.WriteLine("write method 2 {0}", method2(2));
+            
+            Console.WriteLine("write method 3, reference {0}", method3(ref i));
+            int jj;
+            Console.WriteLine("write method 4, out {0}", method4(out jj));
 
+            Console.WriteLine("write method 5, params {0}", method5(2,2,3,4,2,4,5,5,5,9));
+            Console.ReadLine();
         }
 
         static int GetAge()
         {
             return 10;
+        }
+
+        static int method1(int a, int b)
+        {
+            int add = a + b;
+            return add;
+        }
+
+        static int method2(int a, int b=0 )
+        {
+            return a + b;
+        }
+
+        static int method3(ref int i)
+        {
+            return i + 1;
+        }
+        static int method4(out int i)
+        {
+            i = 0;
+            return i + 1;
+        }
+
+        static int method5(params int[] parameters)
+        {
+            int add = 0;
+            foreach (int parameter in parameters)
+            {
+                add = add + parameter;
+            }
+
+            return add;
         }
     }
 }
