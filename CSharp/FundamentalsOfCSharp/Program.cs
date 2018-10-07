@@ -132,8 +132,10 @@ namespace FundamentalsOfCSharp
             //or
             int[,] a7 = new int[,] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
 
-            int[,,] a8 = { { { 1, 2, 3 }, { 1, 2, 3 }, { 1, 2, 3 } },
-                           { { 2, 3, 4 }, { 2, 3, 4 }, { 2, 3, 4 } } };
+            int[,,] a8 = { 
+                { { 1, 2, 3 }, { 1, 2, 3 }, { 1, 2, 3 } },
+                { { 2, 3, 4 }, { 2, 3, 4 }, { 2, 3, 4 } }
+            };
 
             //Jagged array
             int[][] a9 = new int[3][];
@@ -168,7 +170,180 @@ namespace FundamentalsOfCSharp
                 new int[][]{ new int[]{2,3,4,5 } } 
             };
 
+            //we control the flow of execution by introducing:
+            //Decision Structure
+            //Decision Operators
+            //Loops
+            //Jump Statements
 
+            //Decision structure
+            //if
+            if (i > d)
+            {
+                Console.WriteLine("i greater than d");
+            }
+
+            //if - else
+            if(d>f)
+            {
+                Console.WriteLine("d greater than f");
+
+            }
+            else
+            {
+                Console.WriteLine("f greater or equal to d");
+            }
+
+            //if- else if
+            if (d > f)
+            {
+                Console.WriteLine("d greater than f");
+            }
+            else if (d == f)
+            {
+                Console.WriteLine("d equal than f");
+            }
+            else
+            {
+                Console.WriteLine("d less than f");
+            }
+            Console.ReadLine();
+            //switch
+
+            switch (i)
+            {
+                case 1:
+                    Console.WriteLine("one");
+                    break;
+                case 2:
+                    Console.WriteLine("two");
+                    break;
+                case 3:
+                    Console.WriteLine("three");
+                    break;
+                default:
+                    Console.WriteLine("No found");
+                    break;
+                    
+            }
+            Console.ReadLine();
+            //Decision operators
+            //Conditional Operator (? :)
+            string result = i > f ? "i greater than f" : "f greater or equal than i";
+            Console.WriteLine(result);
+            //Null Coalescing Operator (??)
+            string s1 = null;
+
+            string s2 = s1 ?? "0";
+            Console.WriteLine(s2);
+            Console.ReadLine();
+
+            //Loops
+
+            //while loop
+            bool band = false;
+            while (band)
+            {
+                Console.WriteLine("this message is not going to be printed");
+            }
+
+            //do -while loop
+            do
+            {
+                Console.WriteLine("do while loop, enter at least one time");    
+            } while (band);
+            //for loop
+            Console.WriteLine("Loop for");
+            for(int j = 0; j< i; j=j+1)
+            {
+                Console.WriteLine("j = {0}", j);
+            }
+            Console.ReadLine();
+            //foreach loop
+            //We cannot modify the value of a collection while iterating over it in a foreach loop.
+            Console.WriteLine("loop foreach");
+            foreach(var item in a1)
+            {
+                Console.WriteLine(item);
+            }
+            Console.ReadLine();
+            //Jump Statements 
+
+            // Jump statements allow program controls to move from one point to another at any particular location
+            //during the execution of a program. Below are the jump statements that we can use in C#:
+            //Goto
+
+            switch (i)
+            {
+                case 1:
+                    Console.WriteLine("less than ten");
+                    break;
+                case 2:
+                    goto case 1;
+                case 3:
+                    goto case 1;
+                case 4:
+                    goto case 1;
+                default:
+                    Console.WriteLine("greater than ten");
+                    break;
+            }
+
+            foreach(int item in a1)
+            {
+                if (item == 3)
+                {
+                    goto salto;
+                }
+                Console.WriteLine(item);
+            }
+            salto:
+            Console.WriteLine("goto salto");
+            Console.ReadLine();
+
+
+            //Break
+            Console.WriteLine("break in for loop");
+            for(int item = 0; item< 5; item++)
+            {
+                if(item == 2)
+                {
+                    break;
+                }
+                Console.WriteLine(item);
+            }
+            //Continue
+            Console.WriteLine("continue in for loop");
+            for(int item = 0; item < 5; item++)
+            {
+                if(item == 2)
+                {
+                    continue;
+                }
+
+                Console.WriteLine(item);
+            }
+            Console.ReadLine();
+            //Return 
+            //Return is also a jump statement, which moves back the program control to calling method.
+            int age = GetAge();
+            //it is posible to use return statement in the main method
+
+            //If return statement is used in try/catch block and this try/catch has finally block,
+            //then finally block will execute in this condition also and after it control will be
+            //returned to calling method.
+            // Tip: code after return statement is unreachable.Therefore it is wise to use the return
+            //statement inside the if-else block, if we are willing to skip the remaining statement
+            //of method only when a certain condition satisfies.Otherwise execute the complete
+            //method.
+//Throw
+
+
+        }
+
+        static int GetAge()
+        {
+            return 10;
         }
     }
 }
