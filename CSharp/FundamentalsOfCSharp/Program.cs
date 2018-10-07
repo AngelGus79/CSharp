@@ -146,7 +146,7 @@ namespace FundamentalsOfCSharp
             {
                 for (int col = 0; col < a9[row].Length; col++)
                 {
-                    Console.Write("{0}",a9[row][col]);
+                    Console.Write("{0}", a9[row][col]);
                 }
                 Console.WriteLine();
             }
@@ -160,7 +160,13 @@ namespace FundamentalsOfCSharp
                 new int[] {0,1,2},
                 new int[] {0}
             };
-            
+
+            int[][][] a11 =
+                {
+                new int[][]{ new int[]{1,3,2}},
+                new int[][]{ new int[]{1,2}} ,
+                new int[][]{ new int[]{2,3,4,5 } } 
+            };
 
 
         }
