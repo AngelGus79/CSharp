@@ -348,6 +348,8 @@ namespace FundamentalsOfCSharp
 
             Console.WriteLine("write method 5, params {0}", method5(2,2,3,4,2,4,5,5,5,9));
             Console.ReadLine();
+
+            studentCard();
         }
 
         static int GetAge()
@@ -386,5 +388,110 @@ namespace FundamentalsOfCSharp
 
             return add;
         }
+
+        static void calculator()
+        {
+            
+            string response = "N";
+            string option = null;
+            byte op;
+            string auxop;
+            string a, b;
+            int aa, bb, result;
+            string report=null;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("Press any following key to perform an arithmetic operation:");
+                Console.WriteLine("1 - Addition");
+                Console.WriteLine("2 - Sustraction");
+                Console.WriteLine("3 - Multipliation");
+                Console.WriteLine("4 - Division");
+                option = Console.ReadLine();
+
+                auxop = option ?? "1";
+                op = byte.Parse(auxop);
+
+                Console.Write("Enter value 1: ");
+                a = Console.ReadLine();
+                Console.Write("Enter value 2: ");
+                b = Console.ReadLine();
+
+                aa = int.Parse(a);
+                bb = int.Parse(b);
+                result = 0;
+
+
+                switch (op)
+                {
+                    case 1:
+                        result = aa + bb;
+                        report = "{0} + {1} = {2}";
+                        break;
+                    case 2:
+                        result = aa - bb;
+                        report = "{0} - {1} = {2}";
+                        break;
+                    case 3:
+                        result = aa * bb;
+                        report = "{0} * {1} = {2}";
+                        break;
+                    case 4:
+                        result = aa / bb;
+                        report = "{0} / {1} = {2}";
+                        break;
+                }
+
+
+                Console.WriteLine(report,aa,bb,result);
+                Console.Write("Do you want to continue again (Y/N)?");
+                response = Console.ReadLine();
+            } while (response != "N");
+        }
+
+        static void studentCard()
+        {
+            string sstudentsNumber = null;
+            int studentsNumber = 0;
+            int i ;
+
+           
+                Console.Clear();
+                Console.Write("Enter Total Students :");
+                sstudentsNumber = Console.ReadLine();
+                studentsNumber = int.Parse(sstudentsNumber);
+
+                i = 0;
+
+                int[,] marks = new int[studentsNumber, 3];
+                string[] studentNames = new string[studentsNumber];
+            for (int iStudent = 0; iStudent < studentsNumber; iStudent++)
+            {
+                Console.Write("Enter Student Name :");
+                studentNames[iStudent] = Console.ReadLine();
+
+                Console.Write("Enter English Marks (Out Of 100) :");
+                marks[iStudent, 0] = int.Parse(Console.ReadLine());
+
+                Console.Write("Enter Math Marks (Out Of 100) :");
+                marks[iStudent, 1] = int.Parse(Console.ReadLine());
+
+                Console.Write("Enter Computer Marks (Out Of 100) :");
+                marks[iStudent, 2] = int.Parse(Console.ReadLine());
+            }
+                Console.WriteLine("****************Report Card*******************");
+                Console.WriteLine("********************************");
+
+                int position = 1;
+                for (int row = marks.GetLength(0)-1; row >= 0; row--)
+                {
+                    Console.WriteLine("Student Name: {0}, Position:{1}, Total:{2}/300", studentNames[row], position, marks[row, 0] + marks[row, 1] + marks[row, 2]);
+                    Console.WriteLine("********************************");
+                    position++;
+                }
+            Console.ReadLine();
+            }
+            
+        }
     }
-}
+
