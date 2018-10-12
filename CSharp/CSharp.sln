@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FundamentalsOfCSharp", "Fun
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypesInCSharp", "TypesInCSharp\TypesInCSharp.csproj", "{D98E6CA0-C19D-4699-A97C-9B138DBCC042}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GettingStartedwithPOO", "GettingStartedwithPOO\GettingStartedwithPOO.csproj", "{A956E740-EAAD-45C1-B015-1F0CC2C00238}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GettingStartedwithPOO", "GettingStartedwithPOO\GettingStartedwithPOO.csproj", "{A956E740-EAAD-45C1-B015-1F0CC2C00238}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "exercises1To3chapter", "exercises1To3chapter\exercises1To3chapter.csproj", "{5EFFDB6D-759A-4F95-BC8D-73AFBB40F665}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{A956E740-EAAD-45C1-B015-1F0CC2C00238}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A956E740-EAAD-45C1-B015-1F0CC2C00238}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A956E740-EAAD-45C1-B015-1F0CC2C00238}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EFFDB6D-759A-4F95-BC8D-73AFBB40F665}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EFFDB6D-759A-4F95-BC8D-73AFBB40F665}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EFFDB6D-759A-4F95-BC8D-73AFBB40F665}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EFFDB6D-759A-4F95-BC8D-73AFBB40F665}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
