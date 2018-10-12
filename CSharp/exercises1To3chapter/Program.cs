@@ -157,8 +157,32 @@ namespace exercises1To3chapter
         }
 
     }
+    static class ext01
+    {
+        public static bool lessThan(this int origin, int value)
+        {
+            return origin < value;
+        }
+    }
+    class ind01
+    {
+        private double[] array = { 12.1, 3.4, 34.2, 2.5 };
+        public double this[int index] { get { return array[index]; } set { array[index] = value; }  }
 
+        public static implicit operator double[] (ind01 array)
+        {
+            return array;
+        }
 
+        public static ind01 operator +(ind01 i1, ind01 i2)
+        {
+            ind01 i3 = new ind01();
+            i3[0] = i1[0] + i2[0];
+            return i3;
+            
+        }
+    }
+    
 
     class Program
     {
