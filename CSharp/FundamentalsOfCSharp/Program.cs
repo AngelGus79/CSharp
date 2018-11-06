@@ -4,7 +4,13 @@ namespace FundamentalsOfCSharp
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main(params string[] args)
+        {
+            //casting();
+            //arrays();
+            decisionOperators();
+        }
+        static void Main2(string[] args)
         {
             //Variables and Datatypes
             int i = 10; //4 bytes
@@ -491,7 +497,97 @@ namespace FundamentalsOfCSharp
                 }
             Console.ReadLine();
             }
-            
+
+        static void casting()
+        {
+            byte varByte = 34;
+            int varInt = varByte;
+
+            float varFloat = varInt;
+            double varDouble = varFloat;
+
+            int varInt1 = (int)varFloat;
+
+            string sInt = "36";
+            int varInt3 = int.Parse(sInt);
+
+            int varInt4 = Convert.ToInt32(sInt);
+        }
+        static void arrays()
+        {
+            int[] a1 = { 1, 2, 3, 4, 5 };
+            int[] a2 = new int[4];
+            a2[0] = 1;
+            a2[1] = 2;
+            a2[2] = 3;
+            a2[3] = 4;
+
+            for (int item = 0; item < a1.GetLength(0); item++)
+            {
+                Console.WriteLine("item: {0}", item);
+            }
+
+            Console.ReadLine();
+
+            string[,] a3 = new string[2, 2];
+            a3[0, 0] = "one";
+            a3[0, 1] = "two";
+            a3[1, 0] = "three";
+            a3[1, 1] = "four";
+
+            string[,] a4 = { { "one", "two" }, { "three", "four" } };
+
+            for (int rows = 0; rows < a4.GetLength(0); rows++)
+            {
+                for (int cols = 0; cols < a4.GetLength(1); cols++)
+                {
+                    Console.WriteLine("row: {0}, col: {1} = {2}", rows, cols, a4[rows, cols]);
+                }
+            }
+            Console.ReadLine();
+
+            int[][] a5 = new int[3][];
+
+            a5[0] = new int[5] { 1, 2, 3, 4, 5 };
+            a5[1] = new int[2] { 2, 3 };
+            a5[2] = new int[1] { 1 };
+
+            int[][] a6 =
+            {
+                new int[]{1,2,3},
+                new int[]{1,2},
+                new int[]{ 1,2,3,4,5}
+
+            };
+
+            for (int rows = 0; rows < a6.Length; rows++)
+            {
+                for (int cols = 0; cols < a6[rows].Length; cols++)
+                {
+                    Console.Write("{0}, ",a6[rows][cols]);
+
+                }
+                Console.WriteLine();
+            }
+
+            Console.ReadLine();
+
+
+
+        }
+        static void decisionOperators()
+        {
+            string userName;
+            string userName1 = null;
+
+            userName = userName1 ?? "User1";
+
+            string userName2 = (userName == "User1") ? "User2" : "User1";
+
+            Console.WriteLine(userName2);
+            Console.ReadLine();
+        }
+
         }
     }
 
