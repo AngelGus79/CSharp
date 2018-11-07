@@ -2,7 +2,50 @@
 
 namespace TypesInCSharp
 {
-   static class extensionClass
+    interface programation
+    {
+        int marks { get;  }
+    }
+    interface networks
+    {
+        int marks { get; }
+    }
+    class distance
+    {
+        int _distance = 10;
+        public static distance operator --(distance D)
+        {
+            D._distance--;
+            return D;
+        }
+        public static distance operator ++(distance D)
+        {
+            D._distance ++;
+            return D;
+        }
+    }
+    class score: programation, networks
+    {
+        int _programation = 10;
+        int _networks = 9;
+        int programation.marks { get { return _programation; } }
+        int networks.marks { get { return _networks; } }
+
+        
+    }
+    class employee
+    {
+        public string name { get; set; }
+        public employee(string name)
+        {
+            this.name = name;
+        }
+        public static implicit operator string(employee e)
+        {
+            return e.name;
+        }
+    }
+    static class extensionClass
     {
         public static bool myExtensionMethod(this int age, int compareValue)
         {
@@ -17,6 +60,17 @@ namespace TypesInCSharp
                 return false;
             }
 
+        }
+        public static bool isEqualThan(this int origin, int value)
+        {
+            if (origin == value)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
     class Byte
@@ -62,7 +116,32 @@ namespace TypesInCSharp
             return faharenheit;
         }
     }
+    class A
+    {
+        public string name { get; set; }
+        public int age { get; set; }
+    }
+    class B : A
+    {
+        public string ife { get; set; }
+    }
+    class months
+    {
+        private string[] _months = new string[3] { "january", "february", "" };
 
+        public string this[int index]
+        {
+            get
+            {
+                return _months[index];
+            }
+            set
+            {
+                _months[index] = value;
+            }
+        }
+
+    }
     class Program
     {
         enum day //it is used a int for each item (default)
@@ -168,11 +247,25 @@ namespace TypesInCSharp
             //specialtypes();
             //staticMethod();
             //TypeConversion();
-            challenge();
+            //challenge();
+            //enums();
+            //review();
+            //specialTypes();
+            interfaces();
+
+
+
 
             Console.ReadLine();
         }
 
+        static void interfaces()
+        {
+            score Score = new score();
+
+            Console.WriteLine("programation: {0}, networks:{1}", ((programation)Score).marks, ((networks)Score).marks);
+            
+        }
         static void classes()
         {
             student Student = new student(name: "angel", age: 39);
@@ -351,7 +444,86 @@ namespace TypesInCSharp
 
         }
 
+        static void enums()
+        {
+            DayOfWeek day = DayOfWeek.Monday;
+
+            switch (day)
+            {
+                case DayOfWeek.Monday:
+                    Console.WriteLine("Monday");
+                    break;
+                case DayOfWeek.Tuesday:
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+        static void review()
+        {
+            var anonymus = new { name = "Nicandro", lastName = "Chavez" };
+            Console.WriteLine("name: {0}, lastName: {1}", anonymus.name, anonymus.lastName);
+
+            dynamic name = "Nicandro";
+            dynamic age = 22;
+
+            name = 34.32;
+            age = 'a';
+
+            Console.WriteLine("name type: {0},  age type: {1}", name.GetType(), age.GetType());
+            Console.ReadLine();
+        }
+        
+        static void specialTypes()
+        {
+            int i1 = 4;
+                 
+
+            Console.WriteLine(i1.isEqualThan(4));
+            Console.ReadLine();
+
+            A a = new B { name = "Diana", age = 23, ife = "23sdse2" };
+
+            B b = a as B;
+
+            if (a is B)
+            {
+                b = (B)a;
+            }
+
+            employee e = new employee ("Prisma" );
+
+            string name = e;
+
+            Console.WriteLine(name);
+            Console.ReadLine();
+
+        }
+        static void dinamicPolymorphisim()
+        {
+            vehicle V = new bike();
+            V.run(1);
+        }
     }
+    class vehicle
+    {
+       
+        public virtual void run(int mode)
+        {
+            
+        }
+    }
+   class bike: vehicle
+    {
+        int mode;
+        public override void run(int mode)
+        {
+            this.mode = mode;
+        }
+    }
+
 
 }
         
