@@ -252,10 +252,6 @@ namespace TypesInCSharp
             //review();
             //specialTypes();
             interfaces();
-
-
-
-
             Console.ReadLine();
         }
 
@@ -515,15 +511,104 @@ namespace TypesInCSharp
             
         }
     }
-   class bike: vehicle
+    class bike: vehicle
     {
         int mode;
+        float distance;
         public override void run(int mode)
         {
             this.mode = mode;
+            distance = 0;
+        }
+
+        int[] days = { 1, 2, 3, 4, 5, 6, 7 };
+
+        public int this[byte index]
+        {
+            get
+            {
+                return days[index];
+            }
+            set
+            {
+                days[index] = value;
+            }
+        }
+
+        public static bike operator ++(bike b)
+        {
+            b.distance ++;
+            return b;
+        }
+
+        public static implicit operator float( bike b)
+        {
+            return b.distance;
+        }
+        
+
+    }
+    static class extString
+    {
+        public static bool strEqual(this string origin, string value)
+        {
+            if (origin == value)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        static int quantity(this string origin, string value)
+        {
+            return origin.Length;
         }
     }
+    class medication
+    {
+        enum days : byte
+        {
+            monday = 1,
+            tuesday,
+            wednesday,
+            thursday,
+            friday,
+            saturday,
+            sunday
+        }
+
+        byte[] _days = { 1,2,3,4,5,6,7};
 
 
+        int pillsQuantity;
+
+        public byte this[ byte index]
+        {
+            get { return _days[index]; }
+            set { _days[index] = value; }
+        }
+
+
+        public medication(int pillsQuantity)
+        {
+            this.pillsQuantity = pillsQuantity;
+        }
+
+        public static medication operator ++(medication m)
+        {
+            m.pillsQuantity ++;
+            return m;
+        }
+
+        public static implicit operator int(medication m)
+        {
+            return m.pillsQuantity;
+        }
+
+    }
+    
 }
         
