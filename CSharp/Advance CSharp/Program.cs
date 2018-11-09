@@ -35,7 +35,7 @@ namespace Advance_CSharp
         }
         public person()
         {
-
+            
         }
 
         public override string ToString()
@@ -233,7 +233,15 @@ namespace Advance_CSharp
             //strings();
             //stringBuilder();
             //stringReader();
-            stringWriter();
+            //stringWriter();
+
+            double d = 324.3;
+            object o = d;
+
+            int i = (int)(double)o;
+
+            Console.WriteLine("{0}", i);
+
             Console.ReadLine();
         }
 
@@ -1011,7 +1019,255 @@ Microsoft Certified Professional & Specialist in C#";
         }
     }
 
-    
+    class myList : IList<person>
+    {
+        person[] people = new person[10];
+        int index;
 
-    
+        int ICollection<person>.Count {
+            get { return this.Count(); }
+        }
+
+        bool ICollection<person>.IsReadOnly {
+            get { return this.IsReadOnly(); }
+        } 
+        
+
+        public myList()
+        {
+            index = -1;
+        }
+        public person this[int index] {
+            get
+            {
+                return people[index];
+            }
+            set
+            {
+                people[index] = value;
+            }
+        }
+
+        public int Count()
+        {
+            return people.Length;
+        }
+
+        public bool IsReadOnly()
+        {
+            return false;
+        }
+        
+
+
+        public void Add(person item)
+        {
+            if(++index < people.Length)
+            {
+                people[index] = item;
+            }
+        }
+
+        public void Clear()
+        {
+            people = new person[10];
+        }
+
+        public bool Contains(person item)
+        {
+           
+            foreach(person p in people)
+            {
+                if (p.name == item.name)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public void CopyTo(person[] array, int arrayIndex)
+        {
+            array = people;
+        }
+
+        public IEnumerator<person> GetEnumerator()
+        {
+            for( int p = 0; p<people.Length; p++)
+            {
+                yield return people[p];
+            }
+        }
+
+        public int IndexOf(person item)
+        {
+           
+            for(int i = 0; i< people.Length; i++)
+            {
+                if(people[i].name == item.name)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        public void Insert(int index, person item)
+        {
+            if(index < people.Length)
+            {
+                people[index] = item;
+            }
+        }
+
+        public bool Remove(person item)
+        {
+            
+            for (int i = 0; i<people.Length; i++)
+            {
+                if (people[i].name== item.name)
+                {
+                    
+                    people[i] = null;
+                    return true;
+                }
+               
+            }
+            return false;
+        }
+
+        public void RemoveAt(int index)
+        {
+            if(index < people.Length)
+            {
+                people[index] = null;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
+        }
+    }
+
+    class myCollection : ICollection<person>
+    {
+        public int Count
+        {
+            get
+            {
+                return people.Length;
+            }
+        }
+
+
+        public bool IsReadOnly
+        {
+            get
+            {
+                return false;
+            }
+        }
+        person[] people = new person[10];
+        int index;
+
+        public myCollection()
+        {
+            index = -1;
+        }
+        public void Add(person item)
+        {
+            if (++index < people.Length)
+            {
+                people[index] = item;
+            }
+        }
+
+        public void Clear()
+        {
+            people = new person[10];
+        }
+
+        public bool Contains(person item)
+        {
+            for(int i = 0; i<people.Length; i++)
+            {
+                if(people[i].name == item.name)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void CopyTo(person[] array, int arrayIndex)
+        {
+            array = people;
+        }
+
+        public IEnumerator<person> GetEnumerator()
+        {
+            for(int i = 0; i<people.Length; i++)
+            {
+                yield return people[i];
+            }
+        }
+
+        public bool Remove(person item)
+        {
+            for(int i = 0; i < people.Length; i++)
+            {
+                if(people[i].name == item.name)
+                {
+                    people[i] = null;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
+        }
+    }
+
+    class myEnumerable3 : IEnumerable<person>
+    {
+
+        person[] people = new person[10];
+        int index;
+
+        public myEnumerable3()
+        {
+            index = -1;
+        }
+
+        public void Add(person item)
+        {
+            if(++index < people.Length)
+            {
+                people[index] = item;
+            }
+        }
+        public IEnumerator<person> GetEnumerator()
+        {
+            for(int i = 0; i<people.Length; i++)
+            {
+                yield return people[i];
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
+
+           
+        }
+
+    }
+
 }
