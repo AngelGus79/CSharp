@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GettingStartedwithPOO", "Ge
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "exercises1To3chapter", "exercises1To3chapter\exercises1To3chapter.csproj", "{5EFFDB6D-759A-4F95-BC8D-73AFBB40F665}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advance CSharp", "Advance CSharp\Advance CSharp.csproj", "{388BF2DD-DF80-4BAB-AD17-3B255C631E65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Advance CSharp", "Advance CSharp\Advance CSharp.csproj", "{388BF2DD-DF80-4BAB-AD17-3B255C631E65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImplementingDelegatesAndEvents", "ImplementingDelegatesAndEvents\ImplementingDelegatesAndEvents.csproj", "{1E978F75-935C-44BE-8167-B3BFE3DE99B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{388BF2DD-DF80-4BAB-AD17-3B255C631E65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{388BF2DD-DF80-4BAB-AD17-3B255C631E65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{388BF2DD-DF80-4BAB-AD17-3B255C631E65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E978F75-935C-44BE-8167-B3BFE3DE99B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E978F75-935C-44BE-8167-B3BFE3DE99B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E978F75-935C-44BE-8167-B3BFE3DE99B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E978F75-935C-44BE-8167-B3BFE3DE99B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
