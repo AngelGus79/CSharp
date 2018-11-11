@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RootElement>
+  <Name>
+    <FirstName>Yolanda</FirstName>
+    <LastName>Hernandez</LastName>
+  </Name>
+  <Age>23</Age>
+  <Salary>34000</Salary>
+  <City>Mexico</City>
+</RootElement>

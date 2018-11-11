@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "exercises1To3chapter", "exe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Advance CSharp", "Advance CSharp\Advance CSharp.csproj", "{388BF2DD-DF80-4BAB-AD17-3B255C631E65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImplementingDelegatesAndEvents", "ImplementingDelegatesAndEvents\ImplementingDelegatesAndEvents.csproj", "{1E978F75-935C-44BE-8167-B3BFE3DE99B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImplementingDelegatesAndEvents", "ImplementingDelegatesAndEvents\ImplementingDelegatesAndEvents.csproj", "{1E978F75-935C-44BE-8167-B3BFE3DE99B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeepDiveintoLINQ", "DeepDiveintoLINQ\DeepDiveintoLINQ.csproj", "{44A02EBF-0612-443C-9A50-6DCBA48F44EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{1E978F75-935C-44BE-8167-B3BFE3DE99B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E978F75-935C-44BE-8167-B3BFE3DE99B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E978F75-935C-44BE-8167-B3BFE3DE99B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44A02EBF-0612-443C-9A50-6DCBA48F44EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44A02EBF-0612-443C-9A50-6DCBA48F44EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44A02EBF-0612-443C-9A50-6DCBA48F44EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44A02EBF-0612-443C-9A50-6DCBA48F44EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
