@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using System.Xml.Linq;
@@ -11,7 +12,9 @@ namespace DeepDiveintoLINQ
         {
             //TypesOfLinq();
             //LinqToObject();
-            LinqXml();
+            //LinqXml();
+            Challenge01();
+            //Challenge02();
             Console.ReadLine();
         }
 
@@ -306,8 +309,147 @@ namespace DeepDiveintoLINQ
 
 
         }
+        static void Challenge01()
+        {
+            List<country> countries = new List<country>();
+
+            countries.Add(new country { Name = "Mexico", Id = 0, continent = "America" });
+            countries.Add(new country { Name = "Africa", Id = 1, continent = "African" });
+            countries.Add(new country { Name = "China", Id = 2, continent = "Asia" });
+  
+            int op ;
+            int id;
+            string country;
+            string continent;
+
+            do
+            {
+                op = option(ref countries);
+                switch (op)
+                {
+                    case 1:
+                        captureId(out id);
+                        captureCountry(out country);
+                        captureContinent(out continent);
+                        AddCountries(ref countries, id, country, continent);
+                        break;
+                    case 2:
+                        captureId(out id);
+                        captureCountry(out country);
+                        captureContinent(out continent);
+                        UpdateCountries(ref countries, id, country, continent);
+                        break;
+                    case 3:
+                        ReadCountries(ref countries);
+                        break;
+                    case 4:
+                        captureId(out id);
+                        DeleteCountryByID(ref countries, id);
+                        break;
+                    case 5:
+                        return;
+                }
+            } while (!(op == 5));
+                    
+        }
+        static int option(ref List<country> countries)
+        {
+            Console.Clear();
+            Console.WriteLine("");
+            Console.Write("Select an option: <1> add  <2> update  <3> read  <4> delete <5> Salir  ");
+            Console.WriteLine("");
+            ReadCountries(ref countries);
+            return int.Parse(Console.ReadLine());
+            
+        }
+
+       
+        static void captureId(out int id)
+        {
+            Console.WriteLine("input id");
+
+            id = int.Parse(Console.ReadLine());
+        }
+
+        static void captureCountry(out string country)
+        {
+            Console.WriteLine("input country");
+            
+            country = Console.ReadLine();
+
+            
+        }
+
+        static void captureContinent(out string continent)
+        {
+            Console.WriteLine("input continent");
+            continent = Console.ReadLine();
+        }
+
+
+        static void ReadCountries(ref List<country> countries)
+        {
+            var QueryCountries = from c in countries
+                            select c;
+
+            foreach( country c in countries)
+            {
+                Console.WriteLine("{0}   {1}   {2}", c.Id, c.Name, c.continent);
+            }
+
+        }
+
+        static country retrieveDataFromConsole()
+        {
+            Console.Write("ID: ");
+            int id = int.Parse(Console.ReadLine());
+            Console.Write("country: ");
+            string name = Console.ReadLine();
+            Console.Write("continent: ");
+            string Continent = Console.ReadLine();
+
+            return new country { Id = id, Name = name, continent = Continent };
+
+        }
+
+        static void UpdateCountries(ref List<country> countries, int id, string newCountry, string newContinent)
+        {
+            var countrySelected = (from c in countries
+                                   where c.Id == id
+                                   select c).FirstOrDefault();
+            
+            DeleteCountryByID(ref countries, id);
+
+            if (string.IsNullOrEmpty(newContinent))
+            {
+                newContinent = countrySelected.continent;
+            }
+
+            if(string.IsNullOrEmpty(newCountry))
+            {
+                newCountry = countrySelected.Name;
+            }
+
+            AddCountries(ref countries, id, newCountry, newContinent);
+        }
+
+        static void DeleteCountryByID(ref List<country> countries, int id)
+        {
+            countries = countries.Where(c => c.Id != id).ToList();
+        }
+        static void AddCountries(ref List<country> countries, int newId, string newCountry, string newContinent)
+        {
+            countries.Add(new country { Id = newId, Name = newCountry, continent = newContinent });
+        }
     }
 
+    
+    class country
+    {
+        public string Name { get; set; }
+        public int Id { get; set; }
+        public string continent { get; set; }
+    }
     class person
     {
         public string Name { get; set; }
