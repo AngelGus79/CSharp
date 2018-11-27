@@ -19,7 +19,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeepDiveintoLINQ", "DeepDiv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ManageObjectLifeCycle", "ManageObjectLifeCycle\ManageObjectLifeCycle.csproj", "{885CD0C0-11E2-435F-9F16-90C39BB01797}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Multithreaded,AsyncAndParallelProgramming", "Multithreaded,AsyncAndParallelProgramming\Multithreaded,AsyncAndParallelProgramming.csproj", "{2CDCA2BD-1032-4F96-AB9B-AC02B3EBAD58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Multithreaded,AsyncAndParallelProgramming", "Multithreaded,AsyncAndParallelProgramming\Multithreaded,AsyncAndParallelProgramming.csproj", "{2CDCA2BD-1032-4F96-AB9B-AC02B3EBAD58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakeUIResponsive", "MakeUIResponsive\MakeUIResponsive.csproj", "{110BD69B-DCAB-4C36-94CF-F52E63C7418F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chapter8Challenge1", "Chapter8Challenge1\Chapter8Challenge1.csproj", "{A60C2096-3979-4E1F-B501-FD8C31566EB2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +67,14 @@ Global
 		{2CDCA2BD-1032-4F96-AB9B-AC02B3EBAD58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CDCA2BD-1032-4F96-AB9B-AC02B3EBAD58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CDCA2BD-1032-4F96-AB9B-AC02B3EBAD58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{110BD69B-DCAB-4C36-94CF-F52E63C7418F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{110BD69B-DCAB-4C36-94CF-F52E63C7418F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{110BD69B-DCAB-4C36-94CF-F52E63C7418F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{110BD69B-DCAB-4C36-94CF-F52E63C7418F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A60C2096-3979-4E1F-B501-FD8C31566EB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A60C2096-3979-4E1F-B501-FD8C31566EB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A60C2096-3979-4E1F-B501-FD8C31566EB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A60C2096-3979-4E1F-B501-FD8C31566EB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
