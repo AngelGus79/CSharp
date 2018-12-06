@@ -462,8 +462,6 @@ namespace FileIOOperations
 
             BinaryReader reader = new BinaryReader(response.GetResponseStream());
             
-            
-
             long length = response.ContentLength;
             byte[] bytes = new byte[length];
 
