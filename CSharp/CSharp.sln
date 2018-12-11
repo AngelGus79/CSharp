@@ -45,6 +45,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkingWithCryptography", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Challenge01Chapter13", "Challenge01Chapter13\Challenge01Chapter13.csproj", "{B1D806EE-D218-4F87-AA1A-AA81E55894E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyAndReflection", "AssemblyAndReflection\AssemblyAndReflection.csproj", "{5498AC05-4F2B-4A8C-8816-47301618F9FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -127,6 +129,10 @@ Global
 		{B1D806EE-D218-4F87-AA1A-AA81E55894E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1D806EE-D218-4F87-AA1A-AA81E55894E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1D806EE-D218-4F87-AA1A-AA81E55894E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5498AC05-4F2B-4A8C-8816-47301618F9FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5498AC05-4F2B-4A8C-8816-47301618F9FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5498AC05-4F2B-4A8C-8816-47301618F9FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5498AC05-4F2B-4A8C-8816-47301618F9FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
