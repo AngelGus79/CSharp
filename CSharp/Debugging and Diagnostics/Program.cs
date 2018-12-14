@@ -10,6 +10,10 @@ using System.IO;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
+using System.Security.Cryptography;
+using System.Configuration;
+using System.Threading; 
+
 namespace Debugging_and_Diagnostics
 {
     class Program
@@ -25,7 +29,17 @@ namespace Debugging_and_Diagnostics
             //PreprocessorDirectives();
             //DebugAndTraceClass("");
             // DebugAndTraceClass("test.txt");
-            TraceClass1();
+            //TraceClass1();
+            //TraceListeners();
+            //TraceListeners01();
+            //UsingConfigFile();
+            //EventLogTraceListenerMethod();
+            //ReadingEventLog();
+            //EventLogWithTraceSource();
+            // ProfilingTheApplication();
+            //CreatingPerformanceCounters();
+            //UsingCounters();
+            Challenge01();
             Console.ReadLine();
 
 
@@ -79,11 +93,11 @@ namespace Debugging_and_Diagnostics
 #line hidden // numbering not affected  
             string s;
             double d;
-        
-            //you can see how the compiler line change by the output, compilation order option
-    }
 
-      static void DiagnosisMethod()
+            //you can see how the compiler line change by the output, compilation order option
+        }
+
+        static void DiagnosisMethod()
         {
             //Diagnosis helps you to face with performance-related issues
             //Features of diagnostics means to add code for logging and tracing or to monitor applications’ health.
@@ -101,15 +115,14 @@ namespace Debugging_and_Diagnostics
 
         }
 
-
-       static void DebugAndTraceClass(string FileName)
+        static void DebugAndTraceClass(string FileName)
         {
             Debug.Assert(!(FileName.Length == 0), "File Name is missing");
             try
             {
-                
-                Debug.WriteLineIf(File.Exists(FileName),"The File allready Exists");
-                
+
+                Debug.WriteLineIf(File.Exists(FileName), "The File allready Exists");
+
                 using (FileStream myFile = File.Create(FileName))
                 {
                     Debug.WriteLine("The File is created successfully");
@@ -124,17 +137,17 @@ namespace Debugging_and_Diagnostics
 
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Debug.WriteLine("An exception has occurred: " + ex.Message.ToString());
             }
 
- 
+
         }
 
         static void TraceClass1()
         {
-           
+
 
             string connectionString = @"Data Source = (Local)\SQLEXPRESS2016; Initial Catalog = Users; Integrated Security = True";
             SqlConnection connection = new SqlConnection(connectionString);
@@ -204,9 +217,15 @@ namespace Debugging_and_Diagnostics
         static void TraceSourceMethod()
         {
             //It is preferable to use TraceSource than trace static class
+            //first parameter is the name of TraceSource, you can create all you need
+            //second parameter is Source Level, which indicates if you want to trace errors, warnings, all, etc.
             TraceSource ts = new TraceSource("TraceSource1", SourceLevels.All);
+
+
             ts.TraceInformation("Tracing the application..");
+            //this method (TraceEvent) send to the listener the  event type, identifier, and a message
             ts.TraceEvent(TraceEventType.Error, 0, "Error trace Event");
+            //this method (TraceData) send to the listener the tracetype, identifier and message array
             ts.TraceData(TraceEventType.Information, 1, new string[] { "Info1", "Info2" });
             ts.Flush();//flush the buffers
             ts.Close();//close the listeners (in this case listener is outout window)
@@ -222,8 +241,434 @@ namespace Debugging_and_Diagnostics
              //The reason a PDB file is generated in Release Mode is to have information for exception messages about
              //where the error occurred, i.e., stack trace or target of error, etc.Most importantly, you cannot trace your
              //errors or message without having a PDB file.
-       
+
         }
 
+        static void TraceListeners()
+        {
+            //Trace listeners get information from Debug, Trace, TraceSource to write in event log, files, output window etc...
+            //The listeners in .Net are
+            //1.ConsoleTraceListener
+            //2.DelimitedTraceListener
+            //3.EventLogTraceListener
+            //4.TextWriterTraceListener
+            //5.XmlWriterTraceListener
+
+            //1. create a tracesource object
+            TraceSource traceSource = new TraceSource("TraceSource1", SourceLevels.All);
+
+            //2. cleare all listeners
+            traceSource.Listeners.Clear();
+
+            //3. create a listener, this is added in the console
+            ConsoleTraceListener consoleListener = new ConsoleTraceListener();
+
+            //4. Add the listener to the trace object
+            traceSource.Listeners.Add(consoleListener);
+            try
+            {
+                traceSource.TraceInformation("inicializing tracing application...");
+                Console.Write("User Name: ");
+                string UserName = Console.ReadLine();
+
+                if (UserName.Length == 0)
+                    throw new MissingUserNameException("User Name is missing");
+
+                traceSource.TraceEvent(TraceEventType.Information, 0, "The user name has been entered successfully");
+
+                Console.Write("Password: ");
+                string Password = null;
+                while (true)
+                {
+                    ConsoleKeyInfo key = Console.ReadKey(true);
+                    if (key.Key == ConsoleKey.Enter)
+                        break;
+                    Password = Password + key.KeyChar;
+                    Console.Write("*");
+                };
+
+                traceSource.TraceData(TraceEventType.Information, 1, new string[] { "The Password has been added", "The process was successful" });
+
+
+                HashAlgorithm sha512 = SHA512.Create();
+
+                byte[] PasswordBytes = Encoding.UTF8.GetBytes(Password);
+                byte[] hashedPasswordBytes = sha512.ComputeHash(PasswordBytes, 0, PasswordBytes.Length);
+
+                traceSource.TraceEvent(TraceEventType.Information, 2, "The hashed password has been created successfully");
+
+                StringBuilder hashedPassword = new StringBuilder();
+
+                foreach (byte item in hashedPasswordBytes)
+                {
+                    hashedPassword.AppendFormat("{0:x2}", item);
+                }
+
+                traceSource.TraceEvent(TraceEventType.Information, 3, "The hashed password was casting to string successfully");
+                Console.WriteLine("\n{0} The Hashed Password is: {1}", hashedPassword.Length, hashedPassword.ToString());
+            }
+            catch (MissingUserNameException ex)
+            {
+                traceSource.TraceEvent(TraceEventType.Critical, 0, ex.Message);
+                Console.WriteLine(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                traceSource.TraceEvent(TraceEventType.Critical, 0, ex.Message);
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                traceSource.Flush();
+                traceSource.Close();
+            }
+
+        }
+
+        static void TraceListeners01()
+        {
+            //1. Create a TraceSource
+            TraceSource traceSource = new TraceSource("TraceSource1", SourceLevels.All);
+
+            //2. clear listeners from traceSource object
+            traceSource.Listeners.Clear();
+
+            //3. create an stream
+            Stream file = new FileStream("myLog.txt", FileMode.Append);
+
+            //4. Create a listenerWriter
+            TextWriterTraceListener listener = new TextWriterTraceListener(file);
+
+            //5. Add the listener to the TraceSource
+            traceSource.Listeners.Add(listener);
+
+            //6. Very important, add Trace.AutoFlush = true, if you do not add, it is not been written
+            Trace.AutoFlush = true;
+
+            traceSource.TraceInformation("Tracing is inializating...");
+
+            UsersEntities UsersDB = new UsersEntities();
+            Users UsersRow = new Users();
+
+            try
+            {
+                //Adding a Row
+                UsersRow.Password = Guid.NewGuid().ToString();
+                UsersRow.UserName = Guid.NewGuid().ToString();
+                UsersRow.Salt = Guid.NewGuid().ToString();
+
+                UsersDB.Users.Add(UsersRow);
+                traceSource.TraceEvent(TraceEventType.Information, 0, "A new user is added");
+
+                //Deleting A Row
+                Random ran = new Random();
+                int id = ran.Next(20, 50);
+                var FindItemToRemove = (from user in UsersDB.Users
+                                        where user.Id == id
+                                        select user).FirstOrDefault();
+
+                if (!(FindItemToRemove == null))
+                {
+                    UsersDB.Users.Remove(FindItemToRemove);
+                    traceSource.TraceEvent(TraceEventType.Information, 1, "the user was deleted");
+                }
+                else
+                    throw new MissingUserNameException("The User that you try to remove does not exists");
+                //Updating A Row
+
+                var FindItemToUpdate = (from user in UsersDB.Users
+                                        where user.Id == 18
+                                        select user).FirstOrDefault();
+
+                FindItemToUpdate.UserName = "Updated Name";
+                FindItemToUpdate.Password = "Updated Password";
+                FindItemToUpdate.Salt = "Updated Salt";
+
+                traceSource.TraceEvent(TraceEventType.Information, 2, "A user was updated");
+
+                UsersDB.SaveChanges();
+                traceSource.TraceEvent(TraceEventType.Information, 3, "Changes have been saved successfully ");
+
+                //selecting rows
+
+                foreach (var item in UsersDB.Users)
+                {
+                    Console.WriteLine("{0}  {1}  {2}  {3}", item.Id, item.UserName, item.Password, item.Salt);
+                }
+            }
+            catch (MissingUserNameException ex)
+            {
+                traceSource.TraceEvent(TraceEventType.Critical, 0, ex.Message);
+                Console.WriteLine(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                traceSource.TraceEvent(TraceEventType.Critical, 0, ex.Message);
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                file.Dispose();
+                traceSource.Flush();
+                traceSource.Close();
+
+            }
+        }
+
+        private static TraceSource mySource =
+            new TraceSource("SampleTraceSource");
+
+        static void UsingConfigFile()
+        {
+            //System.Configuration add .dll
+            //ConfigurationManager.AppSettings["keyname"]
+
+            mySource.TraceInformation("Initializing Trace Source");
+            mySource.TraceEvent(TraceEventType.Critical, 1, "This is a critical log");
+
+            mySource.Flush();
+            mySource.Close();
+
+        }
+
+        static void EventLogTraceListenerMethod()
+        {
+            //EventLogTraceListener is used to get access to the Windows EventLog
+            //There are three types of Logs: Application, System, or Custom log.
+            // you should run vs in administrator mode
+            string SourceName = "Source Name";
+            string MachineName = "."; //. it is local machine
+            string LogName = "Application";
+
+            if (!EventLog.SourceExists(SourceName, MachineName))
+                EventLog.CreateEventSource(SourceName, LogName);
+
+            EventLog.WriteEntry(SourceName, "This is a message", EventLogEntryType.Information);
+
+        }
+
+        static void ReadingEventLog()
+        {
+            //this method read the last event log entry not necessarily yours
+
+            string SourceName = "Source Name";
+            string LogName = "Application";
+            string MachineName = ".";
+
+            if (!EventLog.SourceExists(SourceName, MachineName))
+                EventLog.CreateEventSource(SourceName, LogName);
+
+            EventLog eventLog = new EventLog(LogName, MachineName, SourceName);
+
+            //get the last entry
+            EventLogEntry LastEntry = eventLog.Entries[eventLog.Entries.Count - 1];
+
+            Console.WriteLine(LastEntry.Message);
+        }
+
+        static void EventLogWithTraceSource()
+        {
+            string SourceName = "EventLogWithTraceSource";
+            string MachineName = ".";
+            string LogName = "Application";
+
+            //1. Verify if the source exists
+            if (!EventLog.SourceExists(SourceName, MachineName))
+                EventLog.CreateEventSource(SourceName, LogName);
+
+            //2. Create an instance of EventLog and set parameters
+            EventLog eventLog = new EventLog();
+
+            eventLog.MachineName = MachineName;
+            eventLog.Log = LogName;
+            eventLog.Source = SourceName;
+
+            //3. Create a EventLogTraceListener instance and set as parameter the eventlog object
+            EventLogTraceListener logListener = new EventLogTraceListener(eventLog);
+
+            //4.Create a TraceSource instance
+            TraceSource tracesource = new TraceSource("TraceSource", SourceLevels.All);
+
+            //5.Clear the listeners in the TraceSource instance
+            tracesource.Listeners.Clear();
+
+            //6. Add the listener in the tracesource
+            tracesource.Listeners.Add(logListener);
+
+
+            tracesource.TraceInformation("The tracing is starting");
+            tracesource.TraceEvent(TraceEventType.Error, 1, "There is a error");
+            tracesource.TraceEvent(TraceEventType.Information, 1, "New information");
+            tracesource.TraceInformation("The tracing is finishing");
+
+
+
+            tracesource.Flush();
+            tracesource.Close();
+
+        }
+
+        public static void ProfilingTheApplication()
+        {
+            //Profiling is about collect information to give a description or analyze it
+            //for example how much the application consume memory, processor or how long the application last to be executed
+
+            //you can do profiling
+            //1. Using Visual Studio Tool
+            //  1.1 <analyze> menu/ <Launch Performance Wizard>/ 
+            //  1.2 <start windows> / run / perform (o monitor de rendimiento)
+            //2. Profiling by Hand
+            //  2.1 StopWatch Class
+            //  2.2 PerformanceCounterCategory and PerformanceCounter with the help of monitor de rendimiento and in the <server explorer>/ <servers>/ <counter peform>
+
+
+
+
+        }
+
+        public static void ProfilingByHandStopWatch()
+        {
+            Stopwatch watcher = new Stopwatch();
+            watcher.Start();
+            Parallel.For(1, 1000000000, new Action<int>(i => { }));
+            watcher.Stop();
+            Console.WriteLine("The miliseconds elapsed are: {0}", watcher.ElapsedMilliseconds);
+
+            watcher.Reset();
+
+            watcher.Start();
+            for (int i = 1; i < 1000000000; i++)
+            {
+
+            }
+            watcher.Stop();
+            Console.WriteLine("The miliseconds elapsed are: {0}", watcher.ElapsedMilliseconds);
+
+        }
+
+        public static void ProfilingByHandPerformanceCounter()
+        {
+            //the perform counters are a set of values updated constantly to monitor the performance
+
+           
+        }
+
+        public static void CreatingPerformanceCounters()
+        {
+            //1.Verify if the category exists
+            if (!PerformanceCounterCategory.Exists("myCounterCategory"))
+            {
+                //2. Create a counter Collection
+                CounterCreationDataCollection myCounterCollection = new CounterCreationDataCollection();
+
+                //3. Create counters and add them to the collection
+                CounterCreationData myCounter01 = new CounterCreationData();
+                myCounter01.CounterName = "Counter01";
+                myCounter01.CounterHelp = "Total number of something done";
+                myCounter01.CounterType = PerformanceCounterType.NumberOfItems32;
+                myCounterCollection.Add(myCounter01);
+
+                CounterCreationData myCounter02 = new CounterCreationData();
+                myCounter02.CounterName = "Counter02";
+                myCounter02.CounterHelp = "Total number of something not done";
+                myCounter02.CounterType = PerformanceCounterType.NumberOfItems32;
+                myCounterCollection.Add(myCounter02);
+
+
+                //4. Create a new category
+                PerformanceCounterCategory.Create("myCounterCategory", "Count something done and not done", myCounterCollection);
+
+                
+            }
+        }
+
+        public static void UsingCounters()
+        {
+            PerformanceCounter myCounter01 = new PerformanceCounter();
+
+            myCounter01.CategoryName = "myCounterCategory";
+            myCounter01.CounterName = "Counter01";
+            myCounter01.MachineName = ".";
+            myCounter01.ReadOnly = false;
+
+            PerformanceCounter myCounter02 = new PerformanceCounter();
+
+            myCounter02.CategoryName = "myCounterCategory";
+            myCounter02.CounterName = "Counter02";
+            myCounter02.MachineName = ".";
+            myCounter02.ReadOnly = false;
+
+            int counter01 = 20;
+            int counter02 = 40;
+
+            for (int i = 0; i < counter01; i++)
+            {
+                Console.WriteLine("Counter01");
+                myCounter01.Increment();
+            }
+            for (int i = 0; i < counter02; i++)
+            {
+                Console.WriteLine("Counter02");
+                myCounter02.Increment();
+            }
+
+            //after this step you can monitor your app. 
+            //1. go to  <start windows> / run / perform (o monitor de rendimiento)
+            //2. select the green plus
+            //3. you will see a list of Category counters, select yours
+            //4. click on <add> button
+            //5. run your application 
+        }
+
+        public static void Challenge01()
+        {
+            string MachineName = ".";
+            string LogName = "Application";
+            string SourceName = "My Source";
+
+            if (!EventLog.SourceExists(SourceName, MachineName))
+                EventLog.CreateEventSource(SourceName, LogName);
+
+            EventLog eventLog = new EventLog(LogName,MachineName,SourceName);
+
+            try
+            {
+                eventLog.WriteEntry("The tracing start...");
+
+                int divisor = 0;
+                int numerator = 23;
+                eventLog.WriteEntry("divisor and numerator was set successfully" + numerator.GetType() + "  " + divisor.GetType());
+
+                Console.WriteLine("The division is {0}", numerator/divisor);
+                
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                eventLog.WriteEntry(ex.Message,EventLogEntryType.Error);
+            }
+            finally
+            {
+                
+                eventLog.Close();
+                eventLog.Dispose();
+            }
+
+
+        }
+
+
+        public static void Challenge02()
+        {
+
+        }
+
+        class MissingUserNameException : Exception
+        {
+            public MissingUserNameException(string Message) : base(Message)
+            {
+
+            }
+        }
     }
 }
